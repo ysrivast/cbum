@@ -1,0 +1,22 @@
+server:
+    port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+spring:
+    application:
+        name: api-gateway
+    cloud:
+      gateway:
+        routes:
+          - id: movie
+            uri: http://localhost:8082/
+            predicates:
+              - Path=/api/v1/movie/**
+          - id: rating
+            uri: http://localhost:8083/
+            predicates:
+              - Path=/api/v1/rating/**
